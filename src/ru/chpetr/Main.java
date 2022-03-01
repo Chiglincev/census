@@ -9,7 +9,7 @@ public class Main {
         List<String> families = Arrays.asList("Evans", "Young", "Harris", "Wilson", "Davies", "Adamson", "Brown");
         Collection<Person> persons = new ArrayList<>();
 
-        for (int i = 0; i < 10_000_000; i++) {
+        for (int i = 0; i < 10_000_0; i++) {
             persons.add(new Person(
                     names.get(new Random().nextInt(names.size())),
                     families.get(new Random().nextInt(families.size())),
@@ -35,23 +35,17 @@ public class Main {
         List<Person> higherEducationWorkersList = new ArrayList<>();
         higherEducationWorkersList.addAll(
                  persons.stream()
-                         .filter(person -> person.getSex().equals(Sex.MAN))
-                         .filter(person -> person.getEducation().equals(Education.HIGHER))
-                         .filter(person -> person.getAge() >= 18)
-                         .filter(person -> person.getAge() <= 65)
+                         .filter(person -> (person.getSex().equals(Sex.MAN) &&
+                            person.getEducation().equals(Education.HIGHER) &&
+                            person.getAge() >= 18 &&
+                            person.getAge() <= 65) ||
+                                 (person.getSex().equals(Sex.WOMAN) &&
+                                  person.getEducation().equals(Education.HIGHER) &&
+                                  person.getAge() >= 18 &&
+                                  person.getAge() <= 60))
+                         .sorted()
                          .toList()
         );
-        higherEducationWorkersList.addAll(
-                persons.stream()
-                        .filter(person -> person.getSex().equals(Sex.WOMAN))
-                        .filter(person -> person.getEducation().equals(Education.HIGHER))
-                        .filter(person -> person.getAge() >= 18)
-                        .filter(person -> person.getAge() <= 60)
-                        .toList()
-        );
-        higherEducationWorkersList = higherEducationWorkersList.stream()
-                        .sorted()
-                        .toList();
 
     }
 }
